@@ -1,4 +1,6 @@
 import { game } from "../main";
+import { Container } from "./UIComponent/Container";
+import { Label } from "./UIComponent/Label";
 
 
 /* 
@@ -52,13 +54,23 @@ export class Application {
     }
 
     public init(): void {
-        this.loader.add("../jsonfile/performance.json");
+        this.loader.add("../jsonfile/loading.json");
         this.loader.load((loader: PIXI.Loader, resources: Partial<Record<string, PIXI.LoaderResource>>) => this.onAssestsLoaded(loader, resources));
 
-        console.log("Game Init");
     };
 
     private onAssestsLoaded(_loader: PIXI.Loader, resources: Partial<Record<string, PIXI.LoaderResource>>): void {
-        console.log(resources);
+        console.log(resources["../jsonfile/loading.json"]?.data.loading);
+        const data = resources["../jsonfile/loading.json"]?.data.loading;
+        const parent: Container = new Container(data.loadingContainer);
+        const label: Label = new Label(data.loadingText);
+
+        this.stage.addChild(parent)
+        this.stage.addChild(label)
+
+
+
+        console.log("Game Init");
+
     }
 }
