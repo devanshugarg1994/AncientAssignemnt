@@ -12,6 +12,7 @@
 import { Container } from "./Container";
 import { Label } from "./Label";
 import { BasicNode } from "./BasicNode";
+import { Shape } from "./Shape";
 
 export class FactoryUI {
     static createUI(json: any, view: BasicNode): void {
@@ -24,7 +25,9 @@ export class FactoryUI {
                 case "container":
                     this.createContainer(obj, view);
                     break;
-
+                case "shape":
+                    this.createShape(obj, view);
+                    break;
                 case "custom":
                     break;
             }
@@ -49,5 +52,23 @@ export class FactoryUI {
             view.addChild(container);
         }
         view.setContainerRefrences(json.id, container);
+    }
+    static createShape(json: any, view: BasicNode): Shape {
+        const gfx: Shape = new Shape(json);
+        gfx.createShape(json);
+        if (!json.visible) {
+            gfx.visible = true;
+        }
+        if (json.scale) {
+            gfx.scale.set(json.scale, json.scale);
+        }
+        if (json.parent) {
+            view.getContainerRefrences(json.parent).addChild(gfx);
+        } else {
+            view.addChild(gfx);
+        }
+        view.setShapeRefrences(json.id, gfx);
+
+        return gfx;
     }
 }

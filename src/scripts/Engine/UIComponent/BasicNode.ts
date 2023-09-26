@@ -11,11 +11,14 @@
 import { Container } from "./Container";
 import { Label } from "./Label";
 import { FactoryUI } from "./FactoryUI";
+import { Shape } from "./Shape";
 
 export class BasicNode extends PIXI.Container {
     // Iterative Design Pattern
     private containerReferences: { [key: string]: Container } = {};
     private labelReferences: { [key: string]: Label } = {};
+    private shapeReferences: { [key: string]: Shape } = {};
+
 
     constructor(json: any) {
         super()
@@ -52,5 +55,12 @@ export class BasicNode extends PIXI.Container {
     }
     public getContainerRefrences(id: string): Container {
         return this.containerReferences[id];
+    }
+    
+    public setShapeRefrences(id: string, shape: Shape) {
+        this.shapeReferences[id] = shape;
+    }
+    public getShapeRefrences(id: string): Shape {
+        return this.shapeReferences[id];
     }
 }
