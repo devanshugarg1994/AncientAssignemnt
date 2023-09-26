@@ -15,10 +15,13 @@ declare global {
 window.PIXI = PIXI;
 
 import { Application } from "./Engine/Application";
+import { Loader } from "./Engine/Loader";
+import { Assets } from "./Assets";
 
 // @ts-ignore               
 export  const game: any = new Application();
 // @ts-ignore               
 globalThis.__PIXI_APP__ = game;
-
 window.game = game;
+const loader = new Loader();
+loader.loadMainManifest([Assets.MainManifsetPath]); // Will add Loadig UI

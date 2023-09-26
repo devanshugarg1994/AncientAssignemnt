@@ -1,3 +1,4 @@
+import { Assets } from "../Assets";
 import { BasicNode } from "../Engine/UIComponent/BasicNode";
 import { game } from "../main";
 import MixedText from "./MixedText";
@@ -10,7 +11,7 @@ export default class  MainScene extends BasicNode {
     }
 
     private init() {
-        const child  = new MixedText(game.loader.resources["../jsonfile/mixedText.json"]?.data.mixedText);
+        const child   = new SpriteOneFourFour(game.loader.resources[Assets.getInstance().getRelativePath("spriteOneFourFour")]?.data.spriteOneFourFour);
         game.stage.addChild(child);
     }
 }
