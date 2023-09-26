@@ -13,6 +13,21 @@ export class Loader {
     constructor() {
     }
 
+    static loadDynamic(list: string[], callback: Function) {
+        if (game.loader.resources[list[0]]) {
+            console.log("Already Loaded");
+            callback && callback(game.loader, game.loader.resources);
+        } else {
+            list.forEach((path: string) => {
+                game.loader.add(path);
+                const assestKey = getAssetKey(path);
+                Assets.getInstance().add({ [assestKey]: path });
+            });
+            console.log(Assets.getInstance().getAssetsMap());
+            game.loader.load((loader: PIXI.Loader, resources: Partial<Record<string, PIXI.LoaderResource>>) => callback(loader, resources));
+        }
+    }
+
     public loadMainManifest(loadingAssestArray: string[]): void {
         loadingAssestArray.forEach((path: string) => {
             game.loader.add(path);
