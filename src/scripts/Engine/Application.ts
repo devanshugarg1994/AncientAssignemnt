@@ -1,3 +1,4 @@
+import MainScene from "../assignment/MainScene";
 import { game } from "../main";
 import { Container } from "./UIComponent/Container";
 import { Label } from "./UIComponent/Label";
@@ -60,14 +61,8 @@ export class Application {
     };
 
     private onAssestsLoaded(_loader: PIXI.Loader, resources: Partial<Record<string, PIXI.LoaderResource>>): void {
-        console.log(resources["../jsonfile/loading.json"]?.data.loading);
-        const data = resources["../jsonfile/loading.json"]?.data.loading;
-        const parent: Container = new Container(data.loadingContainer);
-        const label: Label = new Label(data.loadingText);
 
-        this.stage.addChild(parent)
-        this.stage.addChild(label)
-
+        new MainScene(resources["../jsonfile/mainScene.json"]?.data.mainScene);
 
 
         console.log("Game Init");
