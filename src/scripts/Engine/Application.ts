@@ -52,6 +52,13 @@ export class Application {
     }
 
     public init(): void {
+        this.loader.add("../jsonfile/performance.json");
+        this.loader.load((loader: PIXI.Loader, resources: Partial<Record<string, PIXI.LoaderResource>>) => this.onAssestsLoaded(loader, resources));
+
         console.log("Game Init");
     };
+
+    private onAssestsLoaded(_loader: PIXI.Loader, resources: Partial<Record<string, PIXI.LoaderResource>>): void {
+        console.log(resources);
+    }
 }
