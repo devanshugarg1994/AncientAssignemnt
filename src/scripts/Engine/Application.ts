@@ -57,6 +57,7 @@ export class Application {
     public init(): void {
         this.loader.add("../jsonfile/loading.json");
         this.loader.add("../jsonfile/spriteOneFourFour.json");
+        this.loader.add("../jsonfile/mixedText.json");
 
         this.loader.load((loader: PIXI.Loader, resources: Partial<Record<string, PIXI.LoaderResource>>) => this.onAssestsLoaded(loader, resources));
 
