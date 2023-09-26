@@ -1,7 +1,5 @@
+import { Assets } from "../Assets";
 import MainScene from "../assignment/MainScene";
-import { game } from "../main";
-import { Container } from "./UIComponent/Container";
-import { Label } from "./UIComponent/Label";
 
 
 /* 
@@ -36,9 +34,6 @@ export class Application {
         });
         this.stage = this._app.stage;
         this.loader = this._app.loader;
-
-        this.init();
-
     }
 
     getFPS(): number {
@@ -55,20 +50,8 @@ export class Application {
     }
 
     public init(): void {
-        this.loader.add("../jsonfile/loading.json");
-        this.loader.add("../jsonfile/spriteOneFourFour.json");
-        this.loader.add("../jsonfile/mixedText.json");
-
-        this.loader.load((loader: PIXI.Loader, resources: Partial<Record<string, PIXI.LoaderResource>>) => this.onAssestsLoaded(loader, resources));
-
-    };
-
-    private onAssestsLoaded(_loader: PIXI.Loader, resources: Partial<Record<string, PIXI.LoaderResource>>): void {
-
-        new MainScene(resources["../jsonfile/mainScene.json"]?.data.mainScene);
-
-
-        console.log("Game Init");
+        const mainScene: MainScene = new MainScene(this.loader.resources[Assets.getInstance().getRelativePath("mainScene")]?.data.mainScene);
+        this.stage.addChild(mainScene);
 
     }
 }
