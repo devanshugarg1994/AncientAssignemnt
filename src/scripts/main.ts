@@ -23,5 +23,5 @@ export  const game: any = new Application();
 // @ts-ignore               
 globalThis.__PIXI_APP__ = game;
 window.game = game;
-const loader = new Loader();
+export const loader = new Loader();
 loader.loadMainManifest([Assets.MainManifsetPath]); // Will add Loadig UI

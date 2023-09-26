@@ -13,7 +13,7 @@ export class Loader {
     constructor() {
     }
 
-    static loadDynamic(list: string[], callback: Function) {
+     loadDynamic(list: string[], callback: Function) {
         if (game.loader.resources[list[0]]) {
             console.log("Already Loaded");
             callback && callback(game.loader, game.loader.resources);
