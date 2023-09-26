@@ -1,5 +1,29 @@
 {
     "loading": {
- 
+        "loadingContainer": {
+            "x": 500,
+            "y": 500,
+            "id": "loadingContainer",
+            "type": "container"
+        },
+        "loadingText": {
+            "x": 0,
+            "y": 0,
+            "w": 400,
+            "h": 100,
+            "id": "loadingText",
+            "text": "LOADING...",
+            "type": "label",
+            "visible": true,
+            "alpha": 1,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "style": {
+                "fontFamily": "Arial",
+                "fontSize": 75,
+                "fill": "0xfada5e",
+                "align": "center",
+                "fontWeight": 1000
+            }        }
     }
 }
