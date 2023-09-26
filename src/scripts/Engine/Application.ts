@@ -52,6 +52,37 @@ export class Application {
     public init(): void {
         const mainScene: MainScene = new MainScene(this.loader.resources[Assets.getInstance().getRelativePath("mainScene")]?.data.mainScene);
         this.stage.addChild(mainScene);
+    }
+
+    public scheduleTaskOnce(timeInSec: number, callback: Function) {
+        let seconds = 0;
+        const timer = (delta: number) => {
+            seconds += (1 / 60) * delta;
+            if (seconds >= timeInSec) {
+                callback && callback();
+                this._app.ticker.remove(timer);
+            }
+        }
+        this._app.ticker.add(timer);
+    }
+
+    public scheduleTask(key: string, timeInSec: number, callback: Function) {
+        let seconds = 0;
+        const timer = (delta: number) => {
+            seconds += (1 / 60) * delta;
+            if (seconds >= timeInSec) {
+                callback && callback();
+                seconds = 0
+            }
+        }
+        this.scheduledTask[key] = timer;
+        this._app.ticker.add(timer);
+    }
+    removeScheduledTask(key: string) {
+        const fun = this.scheduledTask[key];
+        this._app.ticker.remove(fun);
 
     }
+    private scheduledTask:  { [key: string]: any } = {};
+
 }
