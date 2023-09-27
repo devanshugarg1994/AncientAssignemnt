@@ -13,6 +13,7 @@ import { Container } from "./Container";
 import { Label } from "./Label";
 import { BasicNode } from "./BasicNode";
 import { Shape } from "./Shape";
+import { ShapeButton } from "./ShapeButton";
 
 export class FactoryUI {
     static createUI(json: any, view: BasicNode): void {
@@ -27,6 +28,9 @@ export class FactoryUI {
                     break;
                 case "shape":
                     this.createShape(obj, view);
+                    break;
+                case "shapebutton":
+                    this.createshapeButton(obj, view);
                     break;
                 case "custom":
                     break;
@@ -44,6 +48,16 @@ export class FactoryUI {
         view.setLabelRefrences(json.id, label);
     }
 
+    static createshapeButton(json: any, view: BasicNode): void {
+        const button: ShapeButton = new ShapeButton(json);
+        if (json.parent) {
+            view.getContainerRefrences(json.parent).addChild(button);
+        } else {
+            view.addChild(button);
+        }
+        view.setShapeButtonRefrences(json.id, button);
+    }
+
     static createContainer(json: any, view: BasicNode): void {
         const container: Container = new Container(json);
         if (json.parent) {
@@ -53,6 +67,7 @@ export class FactoryUI {
         }
         view.setContainerRefrences(json.id, container);
     }
+
     static createShape(json: any, view: BasicNode): Shape {
         const gfx: Shape = new Shape(json);
         gfx.createShape(json);
