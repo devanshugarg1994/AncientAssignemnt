@@ -1,9 +1,9 @@
 import { DisplayObject, Sprite } from "pixi.js";
 import { Assets } from "../Assets";
-import { Loader } from "../Engine/Loader";
 import { BasicNode } from "../Engine/UIComponent/BasicNode";
 import { Label } from "../Engine/UIComponent/Label";
 import { game, loader } from "../main";
+import { CustomEventConstant } from "./EventConstant";
 
 
 const NextCycleTimeInSec = 2;
@@ -23,15 +23,29 @@ const EmojiPath: string[] =
         "../images/9.png",
         "../images/10.png"
     ];
-
-
 export default class MixedTextNew extends BasicNode {
     constructor(json: any) {
         super(json);
         this.json = json;
+        window.dispatchEvent(new CustomEvent(CustomEventConstant.SHOW_BACK_BUTTON, {
+            detail: {
+                show: true
+            }
+        }));
         this.randomTxt = game.loader.resources[Assets.getInstance().getRelativePath("randomTxt")].data.randomTxt;
         this.loadAssets();
+        this.registerEvent();
 
+    }
+
+    private registerEvent() {
+        this.unRegisterEvent
+        window.addEventListener(CustomEventConstant.BACK_BUTTON_PRESSED, this.removeScheduledTask.bind(this));
+
+    }
+
+    private unRegisterEvent() {
+        window.removeEventListener(CustomEventConstant.BACK_BUTTON_PRESSED, this.removeScheduledTask.bind(this));
     }
 
 
