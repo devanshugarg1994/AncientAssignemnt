@@ -1,8 +1,8 @@
 {
     "loading": {
         "loadingContainer": {
-            "x": 500,
-            "y": 500,
+            "x": 0,
+            "y": 0,
             "id": "loadingContainer",
             "type": "container"
         },
@@ -24,6 +24,8 @@
                 "fill": "0xfada5e",
                 "align": "center",
                 "fontWeight": 1000
-            }        }
+            },
+            "parent": "loadingContainer"
+        }
     }
 }

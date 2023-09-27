@@ -1,4 +1,6 @@
 import { Assets } from "../Assets";
+import { BasicUI } from "../assignment/BasicUI";
+import { LoadingUI } from "../assignment/LoadingUI";
 import MainScene from "../assignment/MainScene";
 
 
@@ -50,8 +52,15 @@ export class Application {
     }
 
     public init(): void {
-        const mainScene: MainScene = new MainScene(this.loader.resources[Assets.getInstance().getRelativePath("mainScene")]?.data.mainScene);
-        this.stage.addChild(mainScene);
+        const loadingUI = new LoadingUI(this.loader.resources[Assets.LoadingUiPath]?.data.loading);
+        const basicUi = new BasicUI(this.loader.resources[ Assets.getInstance().getRelativePath("performance")]?.data.performance);
+        this.stage.addChild(loadingUI);
+        this.stage.addChild(basicUi);
+        this.scheduleTaskOnce(3, () => {
+            this.stage.removeChild(loadingUI);
+            const mainScene: MainScene = new MainScene(this.loader.resources[Assets.getInstance().getRelativePath("mainScene")]?.data.mainScene);
+            this.stage.addChild(mainScene);
+        });
     }
 
     public scheduleTaskOnce(timeInSec: number, callback: Function) {

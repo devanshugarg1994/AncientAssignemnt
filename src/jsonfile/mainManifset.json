@@ -1,7 +1,9 @@
 {
     "preLoadresources": [
+        "../jsonfile/performance.json",
         "../jsonfile/mainScene.json",
         "../jsonfile/spriteOneFourFour.json",
-        "../jsonfile/mixedText.json"
+        "../jsonfile/mixedText.json",
+        "../jsonfile/randomTxt.json"
     ]
 }

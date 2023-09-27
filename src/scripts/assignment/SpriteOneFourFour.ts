@@ -1,12 +1,34 @@
 import { BasicNode } from "../Engine/UIComponent/BasicNode";
 import { FactoryUI } from "../Engine/UIComponent/FactoryUI";
 import { Shape } from "../Engine/UIComponent/Shape";
-import basicTween from "../Engine/tween";
+import basicTween, { Tween } from "../Engine/tween";
+import { CustomEventConstant } from "./EventConstant";
 
-export default class  SpriteOneFourFour extends BasicNode {
+export class SpriteOneFourFour extends BasicNode {
     constructor(json: any) {
         super(json);
         this.createCard(json.cardBasicData);
+        window.dispatchEvent(new CustomEvent(CustomEventConstant.SHOW_BACK_BUTTON, {
+            detail: {
+                show: true
+            }
+        }));
+
+        this.registerEvent();
+    }
+
+    private registerEvent() {
+        this.unRegisterEvent();
+        window.addEventListener(CustomEventConstant.BACK_BUTTON_PRESSED, this.killTween.bind(this));
+    }
+
+    private unRegisterEvent() {
+        window.removeEventListener(CustomEventConstant.BACK_BUTTON_PRESSED, this.killTween.bind(this));
+    }
+
+    private killTween() {
+        this.tween.kill();
+        this.destroy();
     }
 
     createCard(json: any) {
@@ -18,7 +40,6 @@ export default class  SpriteOneFourFour extends BasicNode {
         }
         this.cardIndexProcessing = this.cardList.length - 1;
         this.move();
-
     }
 
     private getRandomColor() {
@@ -32,16 +53,20 @@ export default class  SpriteOneFourFour extends BasicNode {
 
     private move() {
         const finalPositionY: number = this.cardList[this.cardIndexProcessing].y / 1.5 + (this.cardList.length - this.cardIndexProcessing - 1) * 0.5;
-        basicTween(this.cardList[this.cardIndexProcessing], 500, finalPositionY, 2000, () =>{
+       this.tween =  basicTween(this.cardList[this.cardIndexProcessing], 500, finalPositionY, 2000, () =>{
             console.log("Tween completed", this.cardIndexProcessing);
-            this.addChildAt(this.cardList[this.cardIndexProcessing], this.cardList.length - this.cardIndexProcessing - 1);
-            this.cardIndexProcessing--;
-            if (this.cardIndexProcessing >= 0) {
-                this.move();
+            if(this.cardList?.length) {
+                this.addChildAt(this.cardList[this.cardIndexProcessing], this.cardList.length - this.cardIndexProcessing - 1);
+                this.cardIndexProcessing--;
+                if (this.cardIndexProcessing >= 0) {
+                    this.move();
+                }
             }
-        })
+
+        });
     }
 
     protected cardList: Shape[] = [];
     private cardIndexProcessing!: number;
+    private tween!: Tween;
 }
