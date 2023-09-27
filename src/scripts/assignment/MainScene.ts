@@ -4,6 +4,7 @@ import { ShapeButton } from "../Engine/UIComponent/ShapeButton";
 import { game } from "../main";
 import { CustomEventConstant, EventConstant } from "./EventConstant";
 import MixedText from "./MixedText";
+import { Particle } from "./Particle";
 import { SpriteOneFourFour } from "./SpriteOneFourFour";
 
 
@@ -64,6 +65,8 @@ export default class  MainScene extends BasicNode {
 
     private onParticlePressed(_event: Event) {
         game.stage.removeChild(this);
+        this.topChild  = new Particle(game.loader.resources[Assets.getInstance().getRelativePath("particleEffect")]?.data.particleEffect);
+        game.stage.addChild(this.topChild);
         console.log("onParticlePressed");
 
     }

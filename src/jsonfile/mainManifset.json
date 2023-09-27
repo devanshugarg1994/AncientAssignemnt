@@ -4,6 +4,12 @@
         "../jsonfile/mainScene.json",
         "../jsonfile/spriteOneFourFour.json",
         "../jsonfile/mixedText.json",
-        "../jsonfile/randomTxt.json"
+        "../jsonfile/particleEffect.json",
+        "../jsonfile/randomTxt.json",
+        "../jsonfile/emitter.json",
+        "../images/fireParticle1.png",
+        "../images/fireParticle2.png"
+
+
     ]
 }
